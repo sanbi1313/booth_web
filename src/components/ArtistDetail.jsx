@@ -1,4 +1,16 @@
+import { xLinks } from '../data/xlinks'
+
 export default function ArtistDetail({ art, onGoHome }) {
+  const xLink = xLinks[art.key]
+
+  const avatar = (
+    <img
+      src={art.av}
+      alt={art.artist}
+      style={{ width: 88, height: 88, borderRadius: 26, objectFit: 'cover', flex: 'none', background: '#eef0f7' }}
+    />
+  )
+
   return (
     <div>
       <div style={{ position: 'relative', padding: 34, background: `linear-gradient(135deg,${art.c1},${art.c2})` }}>
@@ -13,11 +25,13 @@ export default function ArtistDetail({ art, onGoHome }) {
             boxShadow: '0 12px 30px rgba(60,60,90,.12)',
           }}
         >
-          <img
-            src={art.av}
-            alt={art.artist}
-            style={{ width: 88, height: 88, borderRadius: 26, objectFit: 'cover', flex: 'none', background: '#eef0f7' }}
-          />
+          {xLink ? (
+            <a href={xLink} target="_blank" rel="noreferrer" style={{ flex: 'none' }}>
+              {avatar}
+            </a>
+          ) : (
+            avatar
+          )}
           <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
             <div style={{ fontFamily: "'Jua'", fontSize: 26, color: '#33384a', lineHeight: 1.1 }}>{art.booth}</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 9, flexWrap: 'wrap' }}>
