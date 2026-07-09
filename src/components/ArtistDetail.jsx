@@ -1,15 +1,33 @@
 import { xLinks } from '../data/xlinks'
 
 export default function ArtistDetail({ art, onGoHome }) {
-  const xLink = xLinks[art.key]
+  const profiles = [
+    { name: art.artist, av: art.av, xLink: xLinks[art.key] },
+    ...(art.coProfiles || []).map((p) => ({ name: p.name, av: p.av, xLink: xLinks[p.key] })),
+  ]
 
-  const avatar = (
-    <img
-      src={art.av}
-      alt={art.artist}
-      className="cc-artist-avatar"
-      style={{ borderRadius: 26, objectFit: 'cover', flex: 'none', background: '#eef0f7' }}
-    />
+  const avatarGroup = (
+    <div style={{ display: 'flex', gap: 10, flex: 'none' }}>
+      {profiles.map((p) => {
+        const img = (
+          <img
+            src={p.av}
+            alt={p.name}
+            className="cc-artist-avatar"
+            style={{ borderRadius: 26, objectFit: 'cover', flex: 'none', background: '#eef0f7' }}
+          />
+        )
+        return p.xLink ? (
+          <a key={p.av} href={p.xLink} target="_blank" rel="noreferrer" style={{ flex: 'none' }}>
+            {img}
+          </a>
+        ) : (
+          <span key={p.av} style={{ flex: 'none' }}>
+            {img}
+          </span>
+        )
+      })}
+    </div>
   )
 
   return (
@@ -28,13 +46,7 @@ export default function ArtistDetail({ art, onGoHome }) {
             boxShadow: '0 12px 30px rgba(60,60,90,.12)',
           }}
         >
-          {xLink ? (
-            <a href={xLink} target="_blank" rel="noreferrer" style={{ flex: 'none' }}>
-              {avatar}
-            </a>
-          ) : (
-            avatar
-          )}
+          {avatarGroup}
           <div style={{ flex: '1 1 160px', minWidth: 160, display: 'flex', flexDirection: 'column', gap: 6 }}>
             <div className="cc-artist-title" style={{ fontFamily: "'Jua'", fontSize: 26, color: '#33384a', lineHeight: 1.1 }}>{art.booth}</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 9, flexWrap: 'wrap' }}>
@@ -133,7 +145,7 @@ export default function ArtistDetail({ art, onGoHome }) {
               borderRadius: 999,
             }}
           >
-            ← 작가 목록으로
+            ← 부스 목록으로
           </button>
         </div>
       </div>

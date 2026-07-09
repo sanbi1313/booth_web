@@ -6,6 +6,7 @@ export const xLinks = {
   jw: 'https://x.com/Wrdajw0',
   nyang: 'https://x.com/Naring22',
   natsu: 'https://x.com/acidrain1313',
+  pi2: 'https://x.com/appl2pi2_',
   aseo: 'https://x.com/arthur_0323',
   weedrug: 'https://x.com/aworuw1137',
   roroko: 'https://x.com/loloco_0920',

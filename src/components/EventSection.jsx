@@ -33,15 +33,15 @@ export default function EventSection({ onGoHome }) {
                 marginBottom: 14,
               }}
             >
-              🎁 랜덤 카드 무료 배포
+              🎁 랜덤 카드 배포
             </div>
             <div style={{ fontFamily: "'Jua'", fontSize: 20, color: '#33384a', lineHeight: 1.4, marginBottom: 12 }}>
-              7월 서코 7/18~7/19 일정 가격 이상 구매 시 랜덤 카드뽑기 이벤트
+              7월 서코 7/18~7/19 30,000원 이상 구매 시 랜덤 카드뽑기 이벤트
             </div>
             <div style={{ fontSize: 14, color: '#6b7488', lineHeight: 1.8 }}>
               <div>기간 : {eventPeriod}, 서울 코믹월드 SUMMER 2026 현장 한정</div>
               <div>참여 조건 : {eventCondition}</div>
-              <div>수량 소진 시 조기 종료될 수 있어요.</div>
+              <div>수량 소진 시 조기 종료될 수 있어요. 자세한 사항은 부스 문의</div>
             </div>
           </div>
           <div style={{ flex: 'none', textAlign: 'center' }}>

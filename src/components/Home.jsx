@@ -76,9 +76,9 @@ export default function Home({ onOpenArtist, onOpenEvent }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span style={{ fontSize: 26, flex: 'none' }}>🎁</span>
             <div>
-              <div style={{ fontFamily: "'Jua'", fontSize: 15, color: '#7a3b1e' }}>랜덤 카드 무료 배포 이벤트</div>
+              <div style={{ fontFamily: "'Jua'", fontSize: 15, color: '#7a3b1e' }}>랜덤 카드 배포 이벤트</div>
               <div style={{ fontSize: 12, color: '#8a5a3e', marginTop: 2 }}>
-                7/18~7/19 일정 금액 이상 구매 시 랜덤 카드 증정
+                7/18~7/19 일정 금액 이상 구매 시 랜덤 카드 3장 증정
               </div>
             </div>
           </div>
