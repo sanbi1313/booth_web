@@ -72,7 +72,7 @@ export const artists = [
     cText: '#d17088',
     av: '/assets/sanbi-av.png',
     coProfiles: [{ name: 'Pi2_', av: '/assets/pi2.png', key: 'pi2' }],
-    posters: ['/assets/sanbi-1.png', '/assets/sanbi-2.png'],
+    posters: ['/assets/sanbi-1.png', '/assets/sanbi-2.png', 'sanbi-3.jpg'],
     presale: PRESALE_BASE + 'CNICNOZNWY',
   },
   {
