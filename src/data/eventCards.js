@@ -1,5 +1,5 @@
 export const eventPeriod = '2026.07.18(토) – 07.19(일)'
-export const eventCondition = '부스 내 일정 금액 이상 구매 시, 계산대에서 랜덤 카드 증정'
+export const eventCondition = '부스 내 일정 금액 이상 구매 시, 랜덤 카드 증정'
 
 // 이벤트 배너에 쓰이는 카드 더미(뽑기 카드 쌓인 모습) illustration.
 // 실제 아트가 준비되면 이 경로만 교체해 주세요.

@@ -46,7 +46,7 @@ export default function EventSection({ onGoHome }) {
           </div>
           <div style={{ flex: 'none', textAlign: 'center' }}>
             <img src={eventCardPileImage} alt="랜덤 카드 더미" style={{ width: 140, height: 'auto', margin: '0 auto' }} />
-            <div style={{ fontSize: 12, color: '#9098ab', marginTop: 6 }}>이 더미에서 랜덤으로 1장!</div>
+            <div style={{ fontSize: 12, color: '#9098ab', marginTop: 6 }}></div>
           </div>
         </div>
       </div>
