@@ -1,4 +1,4 @@
-import { eventCardImages, eventPeriod, eventCondition } from '../data/eventCards'
+import { eventCardImages, eventCardPileImage, eventPeriod, eventCondition } from '../data/eventCards'
 
 export default function EventSection({ onGoHome }) {
   return (
@@ -9,31 +9,41 @@ export default function EventSection({ onGoHome }) {
             background: 'rgba(255,255,255,.92)',
             borderRadius: 24,
             padding: '24px 26px',
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 20,
             boxShadow: '0 12px 30px rgba(60,60,90,.12)',
           }}
         >
-          <div
-            style={{
-              display: 'inline-flex',
-              gap: 10,
-              alignItems: 'center',
-              background: '#e7ebf6',
-              color: '#5f74b8',
-              fontSize: 13,
-              padding: '7px 16px',
-              borderRadius: 999,
-              marginBottom: 14,
-            }}
-          >
-            🎁 랜덤 카드 무료 배포
+          <div style={{ flex: '1 1 220px', minWidth: 220 }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                gap: 10,
+                alignItems: 'center',
+                background: '#e7ebf6',
+                color: '#5f74b8',
+                fontSize: 13,
+                padding: '7px 16px',
+                borderRadius: 999,
+                marginBottom: 14,
+              }}
+            >
+              🎁 랜덤 카드 무료 배포
+            </div>
+            <div style={{ fontFamily: "'Jua'", fontSize: 20, color: '#33384a', lineHeight: 1.4, marginBottom: 12 }}>
+              7월 서코 7/18~7/19 일정 가격 이상 구매 시 랜덤 카드뽑기 이벤트
+            </div>
+            <div style={{ fontSize: 14, color: '#6b7488', lineHeight: 1.8 }}>
+              <div>기간 : {eventPeriod}, 서울 코믹월드 SUMMER 2026 현장 한정</div>
+              <div>참여 조건 : {eventCondition}</div>
+              <div>수량 소진 시 조기 종료될 수 있어요.</div>
+            </div>
           </div>
-          <div style={{ fontFamily: "'Jua'", fontSize: 20, color: '#33384a', lineHeight: 1.4, marginBottom: 12 }}>
-            7월 서코 7/18~7/19 일정 가격 이상 구매 시 랜덤 카드뽑기 이벤트
-          </div>
-          <div style={{ fontSize: 14, color: '#6b7488', lineHeight: 1.8 }}>
-            <div>기간 : {eventPeriod}, 서울 코믹월드 SUMMER 2026 현장 한정</div>
-            <div>참여 조건 : {eventCondition}</div>
-            <div>수량 소진 시 조기 종료될 수 있어요.</div>
+          <div style={{ flex: 'none', textAlign: 'center' }}>
+            <img src={eventCardPileImage} alt="랜덤 카드 더미" style={{ width: 140, height: 'auto', margin: '0 auto' }} />
+            <div style={{ fontSize: 12, color: '#9098ab', marginTop: 6 }}>이 더미에서 랜덤으로 1장!</div>
           </div>
         </div>
       </div>

@@ -33,7 +33,8 @@
       "Bash(npm uninstall *)",
       "Bash(node verify-event-page.cjs)",
       "Bash(node verify-mobile.cjs verify-before.png)",
-      "Bash(node verify-mobile.cjs verify-after2.png)"
+      "Bash(node verify-mobile.cjs verify-after2.png)",
+      "Bash(node verify-pile.cjs)"
     ]
   }
 }
