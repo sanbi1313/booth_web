@@ -9,7 +9,7 @@ const pillButtonStyle = {
   borderRadius: 999,
 }
 
-export default function Header({ isArtist, onGoHome, onToggleNotice, onToggleStatus }) {
+export default function Header({ isArtist, onGoHome, onToggleNotice, onToggleStatus, onToggleEvent }) {
   return (
     <header
       style={{
@@ -53,6 +53,9 @@ export default function Header({ isArtist, onGoHome, onToggleNotice, onToggleSta
         </button>
         <button onClick={onToggleStatus} style={pillButtonStyle}>
           현황
+        </button>
+        <button onClick={onToggleEvent} style={pillButtonStyle}>
+          이벤트
         </button>
         <span
           style={{

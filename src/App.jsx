@@ -4,6 +4,7 @@ import NoticeBar from './components/NoticeBar'
 import StatusBar from './components/StatusBar'
 import Home from './components/Home'
 import ArtistDetail from './components/ArtistDetail'
+import EventSection from './components/EventSection'
 import { artists, presaleOpen } from './data/artists'
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
 
   const toggleNotice = () => setMenu((m) => (m === 'notice' ? null : 'notice'))
   const toggleStatus = () => setMenu((m) => (m === 'status' ? null : 'status'))
+  const toggleEvent = () => setMenu((m) => (m === 'event' ? null : 'event'))
 
   const art = view === null ? null : artists.find((a) => a.key === view)
 
@@ -40,9 +42,11 @@ export default function App() {
           onGoHome={goHome}
           onToggleNotice={toggleNotice}
           onToggleStatus={toggleStatus}
+          onToggleEvent={toggleEvent}
         />
         {menu === 'notice' && <NoticeBar />}
         {menu === 'status' && <StatusBar presaleOpen={presaleOpen} />}
+        {menu === 'event' && <EventSection />}
         {art === null ? <Home onOpenArtist={openArtist} /> : <ArtistDetail art={art} onGoHome={goHome} />}
       </div>
     </div>

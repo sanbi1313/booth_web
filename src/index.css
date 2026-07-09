@@ -34,3 +34,60 @@ button {
   transform: translateY(-4px);
   box-shadow: 0 18px 40px rgba(90, 100, 150, 0.18) !important;
 }
+
+.cc-event-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 420px) {
+  .cc-event-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 640px) {
+  .cc-event-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 860px) {
+  .cc-event-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.cc-event-card {
+  position: relative;
+}
+
+.cc-event-card:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.cc-event-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+  transform: skewX(-20deg);
+  animation: cc-shine 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes cc-shine {
+  0% {
+    left: -60%;
+  }
+  55% {
+    left: 130%;
+  }
+  100% {
+    left: 130%;
+  }
+}
