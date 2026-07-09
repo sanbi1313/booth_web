@@ -105,8 +105,10 @@ export default function EventSection({ onGoHome }) {
               background: '#fff',
               borderRadius: 24,
               padding: 20,
-              maxWidth: 340,
+              maxWidth: 380,
               width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
               boxShadow: '0 24px 60px rgba(0,0,0,.28)',
               textAlign: 'center',
             }}
@@ -114,7 +116,16 @@ export default function EventSection({ onGoHome }) {
             <img
               src={eventCardImages[selected]}
               alt={`랜덤 카드 ${selected + 1}`}
-              style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: 16, background: '#eef0f7' }}
+              style={{
+                display: 'block',
+                width: '100%',
+                height: 'auto',
+                maxHeight: '70vh',
+                objectFit: 'contain',
+                borderRadius: 16,
+                background: '#eef0f7',
+                margin: '0 auto',
+              }}
             />
             <div style={{ fontFamily: "'Jua'", fontSize: 15, color: '#3a4152', marginTop: 14 }}>
               랜덤 카드 {selected + 1}
