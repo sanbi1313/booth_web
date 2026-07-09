@@ -7,6 +7,7 @@ body {
   background: #e3e7f0;
   font-family: 'Gowun Dodum', 'Baloo 2', sans-serif;
   -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
 }
 
 a {
@@ -24,6 +25,82 @@ img {
 
 button {
   font-family: inherit;
+}
+
+.cc-logo,
+.cc-pill,
+.cc-badge {
+  white-space: nowrap;
+}
+
+.cc-booth-avatar {
+  width: 64px;
+  height: 64px;
+}
+
+.cc-booth-card-body {
+  padding: 18px;
+  gap: 15px;
+}
+
+.cc-booth-title {
+  font-size: 17px;
+}
+
+.cc-artist-avatar {
+  width: 88px;
+  height: 88px;
+}
+
+.cc-artist-title {
+  font-size: 26px;
+}
+
+@media (max-width: 480px) {
+  .cc-header {
+    padding: 14px 16px;
+  }
+
+  .cc-nav {
+    gap: 6px;
+  }
+
+  .cc-logo {
+    font-size: 14px;
+  }
+
+  .cc-badge {
+    font-size: 11px;
+    padding: 7px 10px;
+  }
+
+  .cc-pill {
+    font-size: 13px;
+    padding: 7px 12px;
+  }
+
+  .cc-booth-avatar {
+    width: 52px;
+    height: 52px;
+  }
+
+  .cc-booth-card-body {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .cc-booth-title {
+    font-size: 15px;
+  }
+
+  .cc-artist-avatar {
+    width: 64px;
+    height: 64px;
+  }
+
+  .cc-artist-title {
+    font-size: 20px;
+  }
 }
 
 .cc-card {

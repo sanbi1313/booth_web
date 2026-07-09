@@ -7,7 +7,8 @@ export default function ArtistDetail({ art, onGoHome }) {
     <img
       src={art.av}
       alt={art.artist}
-      style={{ width: 88, height: 88, borderRadius: 26, objectFit: 'cover', flex: 'none', background: '#eef0f7' }}
+      className="cc-artist-avatar"
+      style={{ borderRadius: 26, objectFit: 'cover', flex: 'none', background: '#eef0f7' }}
     />
   )
 
@@ -15,12 +16,14 @@ export default function ArtistDetail({ art, onGoHome }) {
     <div>
       <div style={{ position: 'relative', padding: 34, background: `linear-gradient(135deg,${art.c1},${art.c2})` }}>
         <div
+          className="cc-artist-header"
           style={{
             background: 'rgba(255,255,255,.92)',
             borderRadius: 24,
             padding: '22px 24px',
             display: 'flex',
             alignItems: 'center',
+            flexWrap: 'wrap',
             gap: 20,
             boxShadow: '0 12px 30px rgba(60,60,90,.12)',
           }}
@@ -32,8 +35,8 @@ export default function ArtistDetail({ art, onGoHome }) {
           ) : (
             avatar
           )}
-          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-            <div style={{ fontFamily: "'Jua'", fontSize: 26, color: '#33384a', lineHeight: 1.1 }}>{art.booth}</div>
+          <div style={{ flex: '1 1 160px', minWidth: 160, display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <div className="cc-artist-title" style={{ fontFamily: "'Jua'", fontSize: 26, color: '#33384a', lineHeight: 1.1 }}>{art.booth}</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 9, flexWrap: 'wrap' }}>
               <span style={{ fontSize: 14, color: '#6b7488' }}>{art.artist}</span>
               <span

@@ -74,14 +74,15 @@ export default function Home({ onOpenArtist }) {
               }}
             >
               <div style={{ height: 8, background: `linear-gradient(90deg,${ar.c1},${ar.c2})` }} />
-              <div style={{ padding: 18, display: 'flex', alignItems: 'center', gap: 15 }}>
+              <div className="cc-booth-card-body" style={{ display: 'flex', alignItems: 'center' }}>
                 <img
                   src={ar.av}
                   alt={ar.artist}
-                  style={{ width: 64, height: 64, borderRadius: 20, objectFit: 'cover', flex: 'none', background: '#eef0f7' }}
+                  className="cc-booth-avatar"
+                  style={{ borderRadius: 20, objectFit: 'cover', flex: 'none', background: '#eef0f7' }}
                 />
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 }}>
-                  <div style={{ fontFamily: "'Jua'", fontSize: 17, color: '#3a4152', lineHeight: 1.2 }}>{ar.booth}</div>
+                  <div className="cc-booth-title" style={{ fontFamily: "'Jua'", color: '#3a4152', lineHeight: 1.2 }}>{ar.booth}</div>
                   <div style={{ fontSize: 13, color: '#8890a4' }}>{ar.artist}</div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginTop: 3 }}>
                     <span

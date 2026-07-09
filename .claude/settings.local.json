@@ -30,7 +30,10 @@
       "Bash(npx --yes -p playwright node \"C:\\\\Users\\\\chj31\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-chj31-CLAUDE-FILE--------\\\\0cf5304a-a671-4369-b109-a175c2d39556\\\\scratchpad\\\\verify-event-tab.js\")",
       "Bash(mv verify-event-tab.js verify-event-tab.cjs)",
       "Bash(node verify-event-tab.cjs)",
-      "Bash(npm uninstall *)"
+      "Bash(npm uninstall *)",
+      "Bash(node verify-event-page.cjs)",
+      "Bash(node verify-mobile.cjs verify-before.png)",
+      "Bash(node verify-mobile.cjs verify-after2.png)"
     ]
   }
 }

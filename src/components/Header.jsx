@@ -9,26 +9,30 @@ const pillButtonStyle = {
   borderRadius: 999,
 }
 
-export default function Header({ isArtist, onGoHome, onToggleNotice, onToggleStatus, onToggleEvent }) {
+export default function Header({ isArtist, onGoHome, onToggleNotice, onToggleStatus, onOpenEvent }) {
   return (
     <header
+      className="cc-header"
       style={{
         background: '#ffffff',
         padding: '16px 26px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        rowGap: 10,
         borderBottom: '1px solid #e9ecf5',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-        <div style={{ display: 'flex', gap: 7 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
+        <div style={{ display: 'flex', gap: 7, flexShrink: 0 }}>
           <span style={{ width: 11, height: 11, borderRadius: '50%', background: '#f0a9b8' }} />
           <span style={{ width: 11, height: 11, borderRadius: '50%', background: '#f2d59a' }} />
           <span style={{ width: 11, height: 11, borderRadius: '50%', background: '#a6d6b0' }} />
         </div>
         <button
           onClick={onGoHome}
+          className="cc-logo"
           style={{
             border: 'none',
             cursor: 'pointer',
@@ -42,22 +46,23 @@ export default function Header({ isArtist, onGoHome, onToggleNotice, onToggleSta
           끝나고 회식해요
         </button>
       </div>
-      <nav style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+      <nav className="cc-nav" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 7 }}>
         {isArtist && (
-          <button onClick={onGoHome} style={pillButtonStyle}>
+          <button onClick={onGoHome} className="cc-pill" style={pillButtonStyle}>
             ← 목록
           </button>
         )}
-        <button onClick={onToggleNotice} style={pillButtonStyle}>
+        <button onClick={onToggleNotice} className="cc-pill" style={pillButtonStyle}>
           공지
         </button>
-        <button onClick={onToggleStatus} style={pillButtonStyle}>
+        <button onClick={onToggleStatus} className="cc-pill" style={pillButtonStyle}>
           현황
         </button>
-        <button onClick={onToggleEvent} style={pillButtonStyle}>
+        <button onClick={onOpenEvent} className="cc-pill" style={pillButtonStyle}>
           이벤트
         </button>
         <span
+          className="cc-badge"
           style={{
             background: '#93a9dd',
             color: '#fff',

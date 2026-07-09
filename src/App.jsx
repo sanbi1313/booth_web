@@ -21,11 +21,15 @@ export default function App() {
     setMenu(null)
   }
 
+  const openEvent = () => {
+    setView('event')
+    setMenu(null)
+  }
+
   const toggleNotice = () => setMenu((m) => (m === 'notice' ? null : 'notice'))
   const toggleStatus = () => setMenu((m) => (m === 'status' ? null : 'status'))
-  const toggleEvent = () => setMenu((m) => (m === 'event' ? null : 'event'))
 
-  const art = view === null ? null : artists.find((a) => a.key === view)
+  const art = view === null || view === 'event' ? null : artists.find((a) => a.key === view)
 
   return (
     <div style={{ maxWidth: 900, margin: '0 auto', padding: '36px 20px 64px' }}>
@@ -38,16 +42,17 @@ export default function App() {
         }}
       >
         <Header
-          isArtist={art !== null}
+          isArtist={view !== null}
           onGoHome={goHome}
           onToggleNotice={toggleNotice}
           onToggleStatus={toggleStatus}
-          onToggleEvent={toggleEvent}
+          onOpenEvent={openEvent}
         />
         {menu === 'notice' && <NoticeBar />}
         {menu === 'status' && <StatusBar presaleOpen={presaleOpen} />}
-        {menu === 'event' && <EventSection />}
-        {art === null ? <Home onOpenArtist={openArtist} /> : <ArtistDetail art={art} onGoHome={goHome} />}
+        {view === null && <Home onOpenArtist={openArtist} />}
+        {view === 'event' && <EventSection onGoHome={goHome} />}
+        {art !== null && <ArtistDetail art={art} onGoHome={goHome} />}
       </div>
     </div>
   )
