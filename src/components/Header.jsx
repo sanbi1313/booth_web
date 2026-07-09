@@ -9,7 +9,7 @@ const pillButtonStyle = {
   borderRadius: 999,
 }
 
-export default function Header({ isArtist, onGoHome, onToggleNotice, onToggleStatus, onOpenEvent }) {
+export default function Header({ isArtist, onGoHome, onToggleNotice, onToggleStatus }) {
   return (
     <header
       className="cc-header"
@@ -57,9 +57,6 @@ export default function Header({ isArtist, onGoHome, onToggleNotice, onToggleSta
         </button>
         <button onClick={onToggleStatus} className="cc-pill" style={pillButtonStyle}>
           현황
-        </button>
-        <button onClick={onOpenEvent} className="cc-pill" style={pillButtonStyle}>
-          이벤트
         </button>
         <span
           className="cc-badge"

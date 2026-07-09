@@ -52,6 +52,29 @@ button {
   height: 88px;
 }
 
+.cc-avatar-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 26px;
+  background: rgba(20, 20, 30, 0.6);
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.cc-avatar-link:hover .cc-avatar-overlay,
+.cc-avatar-link:focus-visible .cc-avatar-overlay {
+  opacity: 1;
+}
+
 .cc-artist-title {
   font-size: 26px;
 }

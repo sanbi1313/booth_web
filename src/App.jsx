@@ -46,7 +46,6 @@ export default function App() {
           onGoHome={goHome}
           onToggleNotice={toggleNotice}
           onToggleStatus={toggleStatus}
-          onOpenEvent={openEvent}
         />
         {menu === 'notice' && <NoticeBar />}
         {menu === 'status' && <StatusBar presaleOpen={presaleOpen} />}

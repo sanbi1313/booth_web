@@ -18,8 +18,16 @@ export default function ArtistDetail({ art, onGoHome }) {
           />
         )
         return p.xLink ? (
-          <a key={p.av} href={p.xLink} target="_blank" rel="noreferrer" style={{ flex: 'none' }}>
+          <a
+            key={p.av}
+            href={p.xLink}
+            target="_blank"
+            rel="noreferrer"
+            className="cc-avatar-link"
+            style={{ flex: 'none', position: 'relative', display: 'block' }}
+          >
             {img}
+            <span className="cc-avatar-overlay">프로필 클릭시 X로 연결됩니다.</span>
           </a>
         ) : (
           <span key={p.av} style={{ flex: 'none' }}>
