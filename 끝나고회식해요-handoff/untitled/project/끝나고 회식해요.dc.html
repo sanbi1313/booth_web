@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&amp;family=Jua&amp;family=Gowun+Dodum&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #e3e7f0; font-family: 'Gowun Dodum','Baloo 2',sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #5f74b8; text-decoration: none; }
+  a:hover { color: #4a5c9e; }
+  img { display: block; }
+  .cc-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(90,100,150,.18) !important; }
+  .cc-card { transition: transform .18s ease, box-shadow .18s ease; }
+</style>
+</helmet>
+
+<div style="max-width:900px;margin:0 auto;padding:36px 20px 64px;">
+  <div style="background:#eef0f7;border-radius:32px;overflow:hidden;box-shadow:0 30px 70px rgba(90,100,150,.18);">
+
+    <!-- window topbar -->
+    <header style="background:#ffffff;padding:16px 26px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e9ecf5;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="display:flex;gap:7px;"><span style="width:11px;height:11px;border-radius:50%;background:#f0a9b8;"></span><span style="width:11px;height:11px;border-radius:50%;background:#f2d59a;"></span><span style="width:11px;height:11px;border-radius:50%;background:#a6d6b0;"></span></div>
+        <button onClick="{{ goHome }}" style="border:none;cursor:pointer;background:transparent;font-family:'Jua';font-size:16px;color:#3a4152;padding:0;">끝나고 회식해요</button>
+      </div>
+      <nav style="display:flex;align-items:center;gap:7px;">
+        <sc-if value="{{ isArtist }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ goHome }}" style="border:none;cursor:pointer;background:#f1f3fa;color:#5f74b8;font-family:'Jua';font-size:14px;padding:8px 15px;border-radius:999px;">← 목록</button>
+        </sc-if>
+        <button onClick="{{ toggleNotice }}" style="border:none;cursor:pointer;background:#f1f3fa;color:#5f74b8;font-family:'Jua';font-size:14px;padding:8px 15px;border-radius:999px;">공지</button>
+        <button onClick="{{ toggleStatus }}" style="border:none;cursor:pointer;background:#f1f3fa;color:#5f74b8;font-family:'Jua';font-size:14px;padding:8px 15px;border-radius:999px;">현황</button>
+        <span style="background:#93a9dd;color:#fff;font-family:'Jua';font-size:13px;padding:8px 14px;border-radius:999px;">코믹월드 SUMMER 2026</span>
+      </nav>
+    </header>
+
+    <!-- notice -->
+    <sc-if value="{{ isNotice }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fbfbfe;border-bottom:1px solid #e9ecf5;padding:16px 26px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#93a9dd;">●</span><span style="font-size:14px;color:#474e60;">서울 코믹월드 SUMMER 2026 · 2026.07.18(토) – 07.19(일) 참가합니다.</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#93a9dd;">●</span><span style="font-size:14px;color:#474e60;">각 작가별 굿즈 선입금은 부스 페이지의 witchform 링크에서 신청해 주세요.</span></div>
+      </div>
+    </sc-if>
+
+    <!-- status -->
+    <sc-if value="{{ isStatus }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fbfbfe;border-bottom:1px solid #e9ecf5;padding:16px 26px;display:flex;gap:24px;flex-wrap:wrap;">
+        <sc-if value="{{ presaleOpen }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:center;gap:8px;"><span style="width:9px;height:9px;border-radius:50%;background:#66c19a;display:inline-block;"></span><span style="font-size:14px;color:#474e60;">선입금 <b style="color:#3a4152;">오픈중</b></span></div></sc-if>
+        <sc-if value="{{ presaleClosed }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:8px;"><span style="width:9px;height:9px;border-radius:50%;background:#c5c9d6;display:inline-block;"></span><span style="font-size:14px;color:#9098ab;">선입금 준비중</span></div></sc-if>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="width:9px;height:9px;border-radius:50%;background:#66c19a;display:inline-block;"></span><span style="font-size:14px;color:#474e60;">참가 작가 <b style="color:#3a4152;">8팀 확정</b></span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="width:9px;height:9px;border-radius:50%;background:#93a9dd;display:inline-block;"></span><span style="font-size:14px;color:#474e60;">신간 <b style="color:#3a4152;">입고 진행중</b></span></div>
+      </div>
+    </sc-if>
+
+    <!-- ============ HOME ============ -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <!-- hero -->
+        <div style="position:relative;overflow:hidden;background:linear-gradient(180deg,#ffffff, #eef0f7);">
+          <img src="{{ heroBgSrc }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;opacity:.28;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 38%,transparent 88%);mask-image:linear-gradient(180deg,#000 0%,#000 38%,transparent 88%);pointer-events:none;">
+          <div style="position:relative;z-index:1;padding:40px 34px 30px;text-align:center;">
+          <img src="{{ logoSrc }}" alt="끝나고 회식해요" style="max-width:440px;width:82%;height:auto;margin:0 auto 18px;">
+          <div style="display:inline-flex;gap:10px;align-items:center;background:#e7ebf6;color:#5f74b8;font-size:13px;padding:7px 16px;border-radius:999px;margin-bottom:14px;">서울 코믹월드 SUMMER 2026 · 07.18 – 07.19</div>
+          <div style="font-size:14px;color:#6b7488;line-height:1.7;max-width:520px;margin:0 auto;">여러 작가가 함께하는 연합 부스입니다.<br>아래에서 부스를 선택하면 부스 인포와 굿즈, 선입금 안내를 볼 수 있어요.</div>
+          </div>
+        </div>
+
+        <!-- artist grid -->
+        <div style="padding:6px 34px 40px;">
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:16px;"><span style="font-family:'Jua';font-size:21px;color:#353c4d;">참여 부스</span><span style="font-size:12px;color:#a6adc2;font-family:'Baloo 2';letter-spacing:.06em;">BOOTHS</span></div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+            <sc-for list="{{ artists }}" as="ar" hint-placeholder-count="8">
+              <button class="cc-card" onClick="{{ ar.open }}" style="border:none;cursor:pointer;text-align:left;background:#fff;border-radius:22px;padding:0;overflow:hidden;box-shadow:0 8px 24px rgba(90,100,150,.09);display:flex;flex-direction:column;">
+                <div style="height:8px;background:linear-gradient(90deg,{{ ar.c1 }},{{ ar.c2 }});"></div>
+                <div style="padding:18px;display:flex;align-items:center;gap:15px;">
+                  <img src="{{ ar.av }}" alt="{{ ar.artist }}" style="width:64px;height:64px;border-radius:20px;object-fit:cover;flex:none;background:#eef0f7;">
+                  <div style="flex:1;display:flex;flex-direction:column;gap:4px;min-width:0;">
+                    <div style="font-family:'Jua';font-size:17px;color:#3a4152;line-height:1.2;">{{ ar.booth }}</div>
+                    <div style="font-size:13px;color:#8890a4;">{{ ar.artist }}</div>
+                    <div style="display:flex;align-items:center;gap:7px;margin-top:3px;">
+                      <span style="font-size:11px;color:#5f74b8;background:#eef0f7;padding:3px 10px;border-radius:999px;font-family:'Baloo 2';font-weight:600;">{{ ar.code }}</span>
+                      <span style="width:11px;height:11px;border-radius:50%;background:{{ ar.c1 }};"></span>
+                      <span style="width:11px;height:11px;border-radius:50%;background:{{ ar.c2 }};"></span>
+                    </div>
+                  </div>
+                  <span style="flex:none;color:#b0b7cb;font-size:18px;">→</span>
+                </div>
+              </button>
+            </sc-for>
+          </div>
+          <div style="text-align:center;margin-top:30px;font-size:12px;color:#b0b7cb;">끝나고 회식해요 · 서울 코믹월드 SUMMER 2026</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ ARTIST DETAIL ============ -->
+    <sc-if value="{{ isArtist }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <!-- themed hero -->
+        <div style="position:relative;padding:34px;background:linear-gradient(135deg,{{ art.c1 }},{{ art.c2 }});">
+          <div style="background:rgba(255,255,255,.92);border-radius:24px;padding:22px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 12px 30px rgba(60,60,90,.12);">
+            <img src="{{ art.av }}" alt="{{ art.artist }}" style="width:88px;height:88px;border-radius:26px;object-fit:cover;flex:none;background:#eef0f7;">
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;">
+              <div style="font-family:'Jua';font-size:26px;color:#33384a;line-height:1.1;">{{ art.booth }}</div>
+              <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;">
+                <span style="font-size:14px;color:#6b7488;">{{ art.artist }}</span>
+                <span style="font-size:12px;color:#fff;padding:4px 12px;border-radius:999px;background:{{ art.cText }};font-family:'Baloo 2';font-weight:600;">{{ art.code }}</span>
+                <span style="font-size:12px;color:#8890a4;">코믹월드 SUMMER 2026</span>
+              </div>
+            </div>
+            <a href="{{ art.presale }}" target="_blank" style="flex:none;font-family:'Jua';font-size:14px;color:#fff;background:{{ art.cText }};padding:12px 18px;border-radius:14px;">선입금 신청 →</a>
+          </div>
+        </div>
+
+        <!-- booth info posters -->
+        <div style="padding:30px 34px 20px;">
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:16px;"><span style="font-family:'Jua';font-size:20px;color:#353c4d;">부스 인포 · 굿즈</span><span style="font-size:12px;color:#a6adc2;font-family:'Baloo 2';letter-spacing:.06em;">GOODS</span></div>
+          <div style="display:flex;flex-direction:column;gap:18px;align-items:center;">
+            <sc-for list="{{ art.posters }}" as="p" hint-placeholder-count="1">
+              <img src="{{ p }}" alt="부스 인포" style="width:100%;max-width:660px;height:auto;border-radius:18px;box-shadow:0 8px 24px rgba(90,100,150,.12);">
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- presale band -->
+        <div style="padding:14px 34px 40px;">
+          <div style="border-radius:22px;padding:26px;background:linear-gradient(135deg,{{ art.c1 }},{{ art.c2 }});display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="font-family:'Jua';font-size:19px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.15);">굿즈 선입금 신청</div>
+              <div style="font-size:13px;color:#fff;opacity:.92;">현장 수령 굿즈를 미리 예약하세요.</div>
+            </div>
+            <a href="{{ art.presale }}" target="_blank" style="background:#fff;color:{{ art.cText }};font-family:'Jua';font-size:15px;padding:13px 22px;border-radius:14px;">witchform 열기 →</a>
+          </div>
+          <div style="text-align:center;margin-top:26px;"><button onClick="{{ goHome }}" style="border:none;cursor:pointer;background:#eef0f7;color:#5f74b8;font-family:'Jua';font-size:14px;padding:11px 22px;border-radius:999px;">← 작가 목록으로</button></div>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;presaleOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;현황&quot;},&quot;logo_src&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/logo.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;메인 이미지&quot;},&quot;herobg_src&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/hero-bg.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;메인 이미지&quot;},&quot;iv_av&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/iv-av.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;IV · 프라나&quot;},&quot;iv_p1&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/iv-1.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;IV · 프라나&quot;},&quot;ok_av&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/okkimon-av.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Okkimon · 아루&quot;},&quot;ok_p1&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/okkimon-1.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Okkimon · 아루&quot;},&quot;ok_p2&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/okkimon-2.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Okkimon · 아루&quot;},&quot;ok_p3&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/okkimon-3.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Okkimon · 아루&quot;},&quot;jw_av&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/jw-av.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;JW · 반디&quot;},&quot;jw_p1&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/weedrug-1.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;JW · 반디&quot;},&quot;jw_p2&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/weedrug-2.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;JW · 반디&quot;},&quot;jw_p3&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/weedrug-3.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;JW · 반디&quot;},&quot;ny_av&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/nyang-av.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;냥냐링 · 여행가요&quot;},&quot;ny_p1&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/nyang-1.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;냥냐링 · 여행가요&quot;},&quot;ny_p2&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/nyang-2.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;냥냐링 · 여행가요&quot;},&quot;ny_p3&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/nyang-3.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;냥냐링 · 여행가요&quot;},&quot;ny_p4&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/nyang-4.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;냥냐링 · 여행가요&quot;},&quot;ny_p5&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/nyang-5.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;냥냐링 · 여행가요&quot;},&quot;ny_p6&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/nyang-6.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;냥냐링 · 여행가요&quot;},&quot;ny_p7&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/nyang-7.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;냥냐링 · 여행가요&quot;},&quot;na_av&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/sanbi-av.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;SANBI·Pi2 · 나츠&quot;},&quot;na_p1&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/sanbi-1.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;SANBI·Pi2 · 나츠&quot;},&quot;na_p2&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/sanbi-2.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;SANBI·Pi2 · 나츠&quot;},&quot;as_av&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/aseo-av.jpg&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;아서 · 오컬트&quot;},&quot;as_p1&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/aseo-1.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;아서 · 오컬트&quot;},&quot;we_av&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/weedrug-av.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Weedrug · 시로코&quot;},&quot;we_p1&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/jw-1.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Weedrug · 시로코&quot;},&quot;ro_av&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/roroko-av.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;ロロコ · 애기들&quot;},&quot;ro_p1&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/roroko-1.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;ロロコ · 애기들&quot;},&quot;ro_p2&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/roroko-2.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;ロロコ · 애기들&quot;},&quot;ro_p3&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/roroko-3.png&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;ロロコ · 애기들&quot;}}">
+class Component extends DCLogic {
+  state = { view: null, menu: null };
+
+  renderVals() {
+    const p = this.props;
+    const presaleOpen = p.presaleOpen ?? true;
+    // 경로가 비어있으면 기본 이미지로 대체
+    const g = (v, d) => (v && String(v).trim()) ? v : d;
+    // 비어있는 포스터 경로는 목록에서 제외
+    const P = (...a) => a.map(x => (x && String(x).trim()) ? x : null).filter(Boolean);
+    const base = 'https://witchform.com/payform/?uuid=';
+
+    const artists = [
+      { key: 'iv', booth: '프라나랑 회식해요', artist: 'IV', code: 'BJG3', c1: '#a9d4ef', c2: '#f4b8cf', cText: '#5b8fb8',
+        av: g(p.iv_av, 'assets/iv-av.png'), posters: P(g(p.iv_p1, 'assets/iv-1.png')), presale: base + 'IWAAKNQYGD' },
+      { key: 'okkimon', booth: '아루랑 회식해요', artist: 'Okkimon', code: 'BK04·05', c1: '#e0798f', c2: '#f4b8c8', cText: '#c14f6a',
+        av: g(p.ok_av, 'assets/okkimon-av.png'), posters: P(g(p.ok_p1, 'assets/okkimon-1.png'), g(p.ok_p2, 'assets/okkimon-2.png'), g(p.ok_p3, 'assets/okkimon-3.png')), presale: base + 'VDDHOIMAII' },
+      { key: 'jw', booth: '반디랑 회식해요', artist: 'JW', code: 'BK07', c1: '#b9c2cf', c2: '#5566a0', cText: '#41506e',
+        av: g(p.jw_av, 'assets/jw-av.png'), posters: P(g(p.jw_p1, 'assets/weedrug-1.png'), g(p.jw_p2, 'assets/weedrug-2.png'), g(p.jw_p3, 'assets/weedrug-3.png')), presale: base + 'QYVLVCBZJC' },
+      { key: 'nyang', booth: '끝나고 여행가요', artist: '냥냐링', code: '선입금폼', c1: '#f2a94e', c2: '#f7d478', cText: '#c77a1e',
+        av: g(p.ny_av, 'assets/nyang-av.png'), posters: P(g(p.ny_p1, 'assets/nyang-1.png'), g(p.ny_p2, 'assets/nyang-2.png'), g(p.ny_p3, 'assets/nyang-3.png'), g(p.ny_p4, 'assets/nyang-4.png'), g(p.ny_p5, 'assets/nyang-5.png'), g(p.ny_p6, 'assets/nyang-6.png'), g(p.ny_p7, 'assets/nyang-7.png')), presale: base + 'DLCXNJKGWU' },
+      { key: 'natsu', booth: '나츠랑 회식해요', artist: 'SANBI × Pi2_', code: 'BL09', c1: '#f6b8c4', c2: '#f7d0da', cText: '#d17088',
+        av: g(p.na_av, 'assets/sanbi-av.png'), posters: P(g(p.na_p1, 'assets/sanbi-1.png'), g(p.na_p2, 'assets/sanbi-2.png')), presale: base + 'CNICNOZNWY' },
+      { key: 'aseo', booth: '오컬트랑 회식해요', artist: '아서', code: 'BA31·32', c1: '#a9764e', c2: '#e8a15c', cText: '#8a5a30',
+        av: g(p.as_av, 'assets/aseo-av.jpg'), posters: P(g(p.as_p1, 'assets/aseo-1.png')), presale: base + 'DDCBNYGWIN' },
+      { key: 'weedrug', booth: '시로코랑 회식해요', artist: 'Weedrug', code: 'BL08', c1: '#b7c0cc', c2: '#a9d4ef', cText: '#5a7690',
+        av: g(p.we_av, 'assets/weedrug-av.png'), posters: P(g(p.we_p1, 'assets/jw-1.png')), presale: base + 'VYJTBBGDED' },
+      { key: 'roroko', booth: '애기들이랑 회식해요', artist: 'ロロコ', code: 'BU04·05', c1: '#f4b8c8', c2: '#f2a94e', cText: '#d1707e',
+        av: g(p.ro_av, 'assets/roroko-av.png'), posters: P(g(p.ro_p1, 'assets/roroko-1.png'), g(p.ro_p2, 'assets/roroko-2.png'), g(p.ro_p3, 'assets/roroko-3.png')), presale: base + 'OUKPKWYTTT' },
+    ];
+    artists.forEach((a, i) => { a.open = () => this.setState({ view: i, menu: null }); });
+
+    const view = this.state.view;
+    return {
+      artists,
+      isHome: view === null,
+      isArtist: view !== null,
+      art: view === null ? artists[0] : artists[view],
+      logoSrc: g(p.logo_src, 'assets/logo.png'),
+      heroBgSrc: g(p.herobg_src, 'assets/hero-bg.png'),
+      isNotice: this.state.menu === 'notice',
+      isStatus: this.state.menu === 'status',
+      goHome: () => this.setState({ view: null, menu: null }),
+      toggleNotice: () => this.setState(s => ({ menu: s.menu === 'notice' ? null : 'notice' })),
+      toggleStatus: () => this.setState(s => ({ menu: s.menu === 'status' ? null : 'status' })),
+      presaleOpen, presaleClosed: !presaleOpen,
+    };
+  }
+}
+</script>
+</body>
+</html>

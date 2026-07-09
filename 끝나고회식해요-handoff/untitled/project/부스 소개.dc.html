@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #dde6ee; font-family: 'Gowun Dodum','Baloo 2',sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #4f9dbf; text-decoration: none; }
+  a:hover { color: #3c8aac; }
+  @keyframes softpulse { 0%,100% { box-shadow: 0 0 0 0 rgba(129,197,222,.55);} 50% { box-shadow: 0 0 0 10px rgba(129,197,222,0);} }
+  @keyframes softpulseB { 0%,100% { box-shadow: 0 0 0 0 rgba(147,169,221,.55);} 50% { box-shadow: 0 0 0 10px rgba(147,169,221,0);} }
+</style>
+</helmet>
+
+<section style="display:flex;flex-wrap:wrap;gap:64px;padding:64px;align-items:flex-start;justify-content:center;">
+
+  <!-- ============================= OPTION 1a ============================= -->
+  <div id="1a" style="width:900px;position:relative;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <span style="background:#86c5de;color:#fff;font-family:'Baloo 2';font-weight:700;font-size:13px;padding:5px 12px;border-radius:999px;">1a</span>
+      <span style="color:#5b7583;font-size:13px;font-family:'Gowun Dodum';">에어리 스카이 · 단일 컬럼 그리드</span>
+    </div>
+
+    <div style="background:#f2f8fb;border-radius:32px;overflow:hidden;box-shadow:0 30px 70px rgba(70,120,150,.16);">
+
+      <!-- topbar -->
+      <header style="background:#ffffff;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e8f0f5;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:46px;height:46px;border-radius:16px;background:repeating-linear-gradient(45deg,#e4f1f7 0 8px,#f4fafc 8px 16px);display:flex;align-items:center;justify-content:center;font-family:'Jua';color:#7cb4d0;font-size:12px;">로고</div>
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <div style="font-family:'Jua';font-size:19px;color:#3c4d57;line-height:1;">나츠랑 회식해요</div>
+            <div style="font-size:11px;color:#93a9b4;letter-spacing:.04em;">Yutori Natsu Only Shop</div>
+          </div>
+        </div>
+        <nav style="display:flex;align-items:center;gap:8px;">
+          <button onClick="{{ toggleNoticeA }}" style="border:none;cursor:pointer;background:#eef5f9;color:#4f8199;font-family:'Jua';font-size:14px;padding:9px 16px;border-radius:999px;">공지</button>
+          <button onClick="{{ toggleStatusA }}" style="border:none;cursor:pointer;background:#eef5f9;color:#4f8199;font-family:'Jua';font-size:14px;padding:9px 16px;border-radius:999px;">현황</button>
+          <button onClick="{{ toggleEventA }}" style="border:none;cursor:pointer;background:#86c5de;color:#fff;font-family:'Jua';font-size:14px;padding:9px 18px;border-radius:999px;display:flex;align-items:center;gap:7px;">{{ evA.name }} <span style="font-size:11px;">▾</span></button>
+        </nav>
+      </header>
+
+      <!-- event dropdown -->
+      <sc-if value="{{ isEventA }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#ffffff;border-bottom:1px solid #e8f0f5;padding:12px 28px 18px;">
+          <div style="font-size:11px;color:#a4b7c1;margin-bottom:8px;letter-spacing:.08em;">행사 선택</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <sc-for list="{{ events }}" as="ev" hint-placeholder-count="2">
+              <button onClick="{{ ev.selectA }}" style="border:1px solid #e4f0f5;cursor:pointer;background:#f7fbfd;border-radius:16px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;text-align:left;">
+                <span style="display:flex;flex-direction:column;gap:2px;">
+                  <span style="font-family:'Jua';font-size:15px;color:#3c4d57;">{{ ev.name }}</span>
+                  <span style="font-size:12px;color:#93a9b4;">{{ ev.date }} · {{ ev.booth }}</span>
+                </span>
+                <span style="font-size:11px;color:#4f9dbf;background:#e4f1f7;padding:4px 10px;border-radius:999px;">{{ ev.status }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- notice dropdown -->
+      <sc-if value="{{ isNoticeA }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fbfdfe;border-bottom:1px solid #e8f0f5;padding:16px 28px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#86c5de;">●</span><span style="font-size:14px;color:#4a5b65;">신간 &lt;나츠 온리 일러스트북&gt; 입고 완료 — 부스에서 만나요!</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#86c5de;">●</span><span style="font-size:14px;color:#4a5b65;">선입금 오픈 — 아래 연락처의 witchform 링크에서 신청 가능합니다.</span></div>
+        </div>
+      </sc-if>
+
+      <!-- status dropdown -->
+      <sc-if value="{{ isStatusA }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fbfdfe;border-bottom:1px solid #e8f0f5;padding:16px 28px;display:flex;gap:24px;flex-wrap:wrap;">
+          <sc-if value="{{ presaleOpen }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:center;gap:8px;"><span style="width:9px;height:9px;border-radius:50%;background:#66c19a;display:inline-block;"></span><span style="font-size:14px;color:#4a5b65;">선입금 <b style="color:#3c4d57;">오픈중</b></span></div></sc-if>
+          <sc-if value="{{ presaleClosed }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:8px;"><span style="width:9px;height:9px;border-radius:50%;background:#c3ccd2;display:inline-block;"></span><span style="font-size:14px;color:#93a9b4;">선입금 준비중</span></div></sc-if>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="width:9px;height:9px;border-radius:50%;background:#66c19a;display:inline-block;"></span><span style="font-size:14px;color:#4a5b65;">신간 <b style="color:#3c4d57;">입고 완료</b></span></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="width:9px;height:9px;border-radius:50%;background:#7cb4d0;display:inline-block;"></span><span style="font-size:14px;color:#4a5b65;">부스 배치 <b style="color:#3c4d57;">BL09 확정</b></span></div>
+        </div>
+      </sc-if>
+
+      <!-- hero -->
+      <div style="padding:34px 34px 8px;">
+        <div style="display:flex;gap:26px;align-items:stretch;">
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:8px 4px;">
+            <div style="display:inline-flex;align-self:flex-start;gap:8px;align-items:center;background:#e4f1f7;color:#4f9dbf;font-size:12px;padding:6px 14px;border-radius:999px;">코믹월드 SUMMER 2026 · BL09</div>
+            <div style="font-family:'Jua';font-size:44px;line-height:1.12;color:#37505c;">나츠랑<br>회식해요</div>
+            <div style="font-size:14px;color:#7a909c;line-height:1.7;">유토리 나츠 온리 부스입니다.<br>신간 일러스트북부터 아크릴 굿즈까지, 끝나고 회식하러 오세요!</div>
+            <div style="display:flex;gap:9px;margin-top:4px;">
+              <span style="font-size:12px;color:#8aa0ac;background:#fff;border:1px solid #e6eff4;padding:6px 13px;border-radius:999px;">art. SANBI</span>
+              <span style="font-size:12px;color:#8aa0ac;background:#fff;border:1px solid #e6eff4;padding:6px 13px;border-radius:999px;">art. PI2</span>
+            </div>
+          </div>
+          <div style="width:300px;border-radius:26px;overflow:hidden;position:relative;background:repeating-linear-gradient(45deg,#e6f1f7 0 12px,#f4fafc 12px 24px);min-height:340px;display:flex;align-items:center;justify-content:center;border:1px solid #e6eff4;">
+            <span style="font-family:ui-monospace,monospace;font-size:12px;color:#9db6c2;letter-spacing:.04em;text-align:center;line-height:1.8;">대표 일러스트<br>(세로 이미지)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- event info -->
+      <div style="padding:26px 34px;">
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;">
+          <span style="font-family:'Jua';font-size:21px;color:#37505c;">행사 정보</span>
+          <span style="font-size:12px;color:#a4b7c1;font-family:'Baloo 2';letter-spacing:.06em;">EVENT</span>
+        </div>
+        <div style="background:#fff;border-radius:24px;padding:24px 26px;box-shadow:0 8px 24px rgba(80,140,175,.07);display:flex;flex-direction:column;gap:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-family:'Jua';font-size:18px;color:#3c4d57;">{{ evA.name }}</span>
+            <span style="font-size:12px;color:#4f9dbf;background:#e4f1f7;padding:5px 13px;border-radius:999px;">{{ evA.status }}</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+            <div style="background:#f5fafc;border-radius:18px;padding:16px;"><div style="font-size:11px;color:#a4b7c1;margin-bottom:6px;letter-spacing:.06em;">일시</div><div style="font-family:'Jua';font-size:15px;color:#3c4d57;line-height:1.4;">{{ evA.date }}</div></div>
+            <div style="background:#f5fafc;border-radius:18px;padding:16px;"><div style="font-size:11px;color:#a4b7c1;margin-bottom:6px;letter-spacing:.06em;">부스</div><div style="font-family:'Jua';font-size:15px;color:#3c4d57;">{{ evA.booth }}</div></div>
+            <div style="background:#f5fafc;border-radius:18px;padding:16px;"><div style="font-size:11px;color:#a4b7c1;margin-bottom:6px;letter-spacing:.06em;">장소</div><div style="font-family:'Jua';font-size:15px;color:#3c4d57;">{{ evA.place }}</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- goods -->
+      <div style="padding:14px 34px 26px;">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;">
+          <div style="display:flex;align-items:baseline;gap:10px;"><span style="font-family:'Jua';font-size:21px;color:#37505c;">굿즈 안내</span><span style="font-size:12px;color:#a4b7c1;font-family:'Baloo 2';letter-spacing:.06em;">GOODS</span></div>
+          <span style="font-size:12px;color:#93a9b4;">가격은 현장 · 선입금 동일</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+          <sc-for list="{{ goods }}" as="g" hint-placeholder-count="8">
+            <div style="background:#fff;border-radius:22px;padding:14px;box-shadow:0 6px 20px rgba(80,140,175,.07);display:flex;flex-direction:column;gap:11px;">
+              <div style="position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;background:repeating-linear-gradient(45deg,#eaf3f8 0 10px,#f6fbfd 10px 20px);display:flex;align-items:center;justify-content:center;border:1px solid #edf4f8;">
+                <span style="font-family:ui-monospace,monospace;font-size:11px;color:#a2bac6;">굿즈 이미지</span>
+                <span style="position:absolute;top:10px;left:10px;background:#fff;color:#4f9dbf;font-family:'Baloo 2';font-weight:700;font-size:12px;width:26px;height:26px;border-radius:9px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(80,140,175,.14);">{{ g.n }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="font-family:'Jua';font-size:15px;color:#39505c;line-height:1.3;">{{ g.name }}</div>
+                <div style="font-size:12px;color:#93a9b4;">{{ g.spec }}</div>
+              </div>
+              <div style="margin-top:auto;display:flex;align-items:baseline;gap:8px;">
+                <sc-if value="{{ g.wasPrice }}" hint-placeholder-val="{{ false }}"><span style="text-decoration:line-through;color:#c3ccd2;font-size:12px;">{{ g.wasPrice }}원</span></sc-if>
+                <span style="font-family:'Baloo 2';font-weight:700;color:#4f9dbf;font-size:18px;">{{ g.price }}원</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- sets -->
+        <div style="margin-top:22px;background:#e9f3f8;border-radius:24px;padding:22px 24px;">
+          <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;"><span style="font-family:'Jua';font-size:17px;color:#37505c;">세트 할인</span><span style="font-size:11px;background:#86c5de;color:#fff;padding:4px 11px;border-radius:999px;font-family:'Jua';">SET</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+            <sc-for list="{{ sets }}" as="s" hint-placeholder-count="3">
+              <div style="background:#fff;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:8px;">
+                <div style="font-family:'Jua';font-size:15px;color:#3c4d57;">{{ s.name }}</div>
+                <div style="font-size:12px;color:#93a9b4;line-height:1.5;flex:1;">{{ s.desc }}</div>
+                <div style="display:flex;align-items:baseline;gap:7px;"><span style="text-decoration:line-through;color:#c3ccd2;font-size:12px;">{{ s.was }}원</span><span style="font-family:'Baloo 2';font-weight:700;color:#e08aa0;font-size:17px;">{{ s.price }}원</span></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <!-- booth map -->
+      <div style="padding:14px 34px 26px;">
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;"><span style="font-family:'Jua';font-size:21px;color:#37505c;">부스 약도</span><span style="font-size:12px;color:#a4b7c1;font-family:'Baloo 2';letter-spacing:.06em;">MAP</span></div>
+        <div style="background:#fff;border-radius:24px;padding:24px;box-shadow:0 8px 24px rgba(80,140,175,.07);">
+          <div style="display:flex;justify-content:center;margin-bottom:16px;"><span style="background:#eef5f9;color:#7a909c;font-size:12px;padding:6px 22px;border-radius:0 0 14px 14px;">↑ 입구 / 통로 ↑</span></div>
+          <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:8px;">
+            <sc-for list="{{ boothRow }}" as="b" hint-placeholder-count="8">
+              <div style="position:relative;aspect-ratio:1;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2';font-weight:600;font-size:12px;">
+                <sc-if value="{{ b.me }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute;inset:0;border-radius:12px;background:#86c5de;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:softpulse 2s infinite;">
+                    <span style="font-size:12px;">{{ b.code }}</span>
+                    <span style="font-family:'Jua';font-size:9px;margin-top:2px;">우리 부스</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ b.other }}" hint-placeholder-val="{{ true }}">
+                  <div style="position:absolute;inset:0;border-radius:12px;background:#f0f5f8;color:#adc0ca;display:flex;align-items:center;justify-content:center;">{{ b.code }}</div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:16px;justify-content:center;font-size:12px;color:#93a9b4;"><span style="display:flex;align-items:center;gap:6px;"><span style="width:12px;height:12px;border-radius:4px;background:#86c5de;display:inline-block;"></span>나츠랑 회식해요 (BL09)</span><span style="display:flex;align-items:center;gap:6px;"><span style="width:12px;height:12px;border-radius:4px;background:#f0f5f8;display:inline-block;"></span>주변 부스</span></div>
+        </div>
+      </div>
+
+      <!-- contact -->
+      <div style="padding:14px 34px 40px;">
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;"><span style="font-family:'Jua';font-size:21px;color:#37505c;">연락처</span><span style="font-size:12px;color:#a4b7c1;font-family:'Baloo 2';letter-spacing:.06em;">CONTACT</span></div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:260px;background:#fff;border-radius:22px;padding:22px;box-shadow:0 8px 24px rgba(80,140,175,.07);display:flex;flex-direction:column;gap:12px;">
+            <div style="font-size:12px;color:#a4b7c1;letter-spacing:.06em;">SNS</div>
+            <a href="https://x.com/acidrain1313" target="_blank" style="display:flex;align-items:center;justify-content:space-between;background:#f5fafc;border-radius:14px;padding:12px 16px;"><span style="font-family:'Jua';font-size:15px;color:#3c4d57;">SANBI</span><span style="font-size:13px;color:#4f9dbf;">@acidrain1313</span></a>
+            <a href="https://x.com/appl2pi2" target="_blank" style="display:flex;align-items:center;justify-content:space-between;background:#f5fafc;border-radius:14px;padding:12px 16px;"><span style="font-family:'Jua';font-size:15px;color:#3c4d57;">PI2</span><span style="font-size:13px;color:#4f9dbf;">@appl2pi2</span></a>
+          </div>
+          <div style="flex:1;min-width:260px;background:#86c5de;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:12px;justify-content:center;">
+            <div style="font-family:'Jua';font-size:18px;color:#fff;">선입금 신청</div>
+            <div style="font-size:13px;color:#f0faff;line-height:1.6;">현장 수령 굿즈를 미리 신청하세요. 아래 witchform 링크에서 접수됩니다.</div>
+            <a href="https://witchform.com/payform/?uuid=CNICNOZNWY" target="_blank" style="margin-top:4px;background:#fff;color:#3c8aac;font-family:'Jua';font-size:15px;text-align:center;padding:13px;border-radius:14px;">witchform 선입금 열기 →</a>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:26px;font-size:12px;color:#adc0ca;">나츠랑 회식해요 · 코믹월드 SUMMER 2026 · BL09</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================= OPTION 1b ============================= -->
+  <div id="1b" style="width:900px;position:relative;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <span style="background:#93a9dd;color:#fff;font-family:'Baloo 2';font-weight:700;font-size:13px;padding:5px 12px;border-radius:999px;">1b</span>
+      <span style="color:#5b6379;font-size:13px;font-family:'Gowun Dodum';">세렌 블루 · 창(window) 헤더 + 2단 레이아웃</span>
+    </div>
+
+    <div style="background:#edf0f7;border-radius:32px;overflow:hidden;box-shadow:0 30px 70px rgba(90,100,150,.18);">
+
+      <!-- window topbar -->
+      <header style="background:#ffffff;padding:16px 26px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e9ecf5;">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="display:flex;gap:7px;"><span style="width:11px;height:11px;border-radius:50%;background:#f0a9b8;"></span><span style="width:11px;height:11px;border-radius:50%;background:#f2d59a;"></span><span style="width:11px;height:11px;border-radius:50%;background:#a6d6b0;"></span></div>
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <div style="font-family:'Jua';font-size:17px;color:#3a4152;line-height:1;">나츠랑 회식해요 <span style="font-size:11px;color:#93a9dd;">BL09</span></div>
+            <div style="font-size:11px;color:#9098ab;letter-spacing:.04em;">Yutori Natsu Only Shop</div>
+          </div>
+        </div>
+        <nav style="display:flex;align-items:center;gap:7px;background:#f1f3fa;padding:5px;border-radius:999px;">
+          <button onClick="{{ toggleNoticeB }}" style="border:none;cursor:pointer;background:transparent;color:#5f74b8;font-family:'Jua';font-size:14px;padding:8px 15px;border-radius:999px;">공지</button>
+          <button onClick="{{ toggleStatusB }}" style="border:none;cursor:pointer;background:transparent;color:#5f74b8;font-family:'Jua';font-size:14px;padding:8px 15px;border-radius:999px;">현황</button>
+          <button onClick="{{ toggleEventB }}" style="border:none;cursor:pointer;background:#93a9dd;color:#fff;font-family:'Jua';font-size:14px;padding:8px 16px;border-radius:999px;display:flex;align-items:center;gap:7px;">{{ evB.name }} <span style="font-size:11px;">▾</span></button>
+        </nav>
+      </header>
+
+      <!-- event dropdown -->
+      <sc-if value="{{ isEventB }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#ffffff;border-bottom:1px solid #e9ecf5;padding:12px 26px 18px;">
+          <div style="font-size:11px;color:#a6adc2;margin-bottom:8px;letter-spacing:.08em;">행사 선택</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <sc-for list="{{ events }}" as="ev" hint-placeholder-count="2">
+              <button onClick="{{ ev.selectB }}" style="border:1px solid #e6e9f4;cursor:pointer;background:#f7f8fc;border-radius:16px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;text-align:left;">
+                <span style="display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Jua';font-size:15px;color:#3a4152;">{{ ev.name }}</span><span style="font-size:12px;color:#9098ab;">{{ ev.date }} · {{ ev.booth }}</span></span>
+                <span style="font-size:11px;color:#5f74b8;background:#e7ebf6;padding:4px 10px;border-radius:999px;">{{ ev.status }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- notice dropdown -->
+      <sc-if value="{{ isNoticeB }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fbfbfe;border-bottom:1px solid #e9ecf5;padding:16px 26px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#93a9dd;">●</span><span style="font-size:14px;color:#474e60;">신간 &lt;나츠 온리 일러스트북&gt; 입고 완료 — 부스에서 만나요!</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#93a9dd;">●</span><span style="font-size:14px;color:#474e60;">선입금 오픈 — 아래 연락처의 witchform 링크에서 신청 가능합니다.</span></div>
+        </div>
+      </sc-if>
+
+      <!-- status dropdown -->
+      <sc-if value="{{ isStatusB }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fbfbfe;border-bottom:1px solid #e9ecf5;padding:16px 26px;display:flex;gap:24px;flex-wrap:wrap;">
+          <sc-if value="{{ presaleOpen }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:center;gap:8px;"><span style="width:9px;height:9px;border-radius:50%;background:#66c19a;display:inline-block;"></span><span style="font-size:14px;color:#474e60;">선입금 <b style="color:#3a4152;">오픈중</b></span></div></sc-if>
+          <sc-if value="{{ presaleClosed }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:8px;"><span style="width:9px;height:9px;border-radius:50%;background:#c5c9d6;display:inline-block;"></span><span style="font-size:14px;color:#9098ab;">선입금 준비중</span></div></sc-if>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="width:9px;height:9px;border-radius:50%;background:#66c19a;display:inline-block;"></span><span style="font-size:14px;color:#474e60;">신간 <b style="color:#3a4152;">입고 완료</b></span></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="width:9px;height:9px;border-radius:50%;background:#93a9dd;display:inline-block;"></span><span style="font-size:14px;color:#474e60;">부스 배치 <b style="color:#3a4152;">BL09 확정</b></span></div>
+        </div>
+      </sc-if>
+
+      <!-- hero full bleed -->
+      <div style="position:relative;height:300px;background:repeating-linear-gradient(45deg,#e4e8f5 0 14px,#f1f3fa 14px 28px);display:flex;align-items:flex-end;">
+        <div style="position:absolute;top:14px;right:18px;font-family:ui-monospace,monospace;font-size:11px;color:#9aa4c4;background:#ffffffcc;padding:5px 10px;border-radius:8px;">대표 일러스트 (가로 배너)</div>
+        <div style="position:relative;width:100%;padding:30px 34px;background:linear-gradient(to top,rgba(237,240,247,.96),rgba(237,240,247,.2) 70%,transparent);">
+          <div style="display:inline-flex;gap:8px;align-items:center;background:#e7ebf6;color:#5f74b8;font-size:12px;padding:6px 14px;border-radius:999px;margin-bottom:12px;">코믹월드 SUMMER 2026 · BL09</div>
+          <div style="font-family:'Jua';font-size:40px;line-height:1.1;color:#353c4d;">나츠랑 회식해요</div>
+          <div style="font-size:14px;color:#6b7488;margin-top:8px;">유토리 나츠 온리 부스 · art. SANBI × PI2</div>
+        </div>
+      </div>
+
+      <!-- two column body -->
+      <div style="padding:28px 34px 40px;display:grid;grid-template-columns:300px 1fr;gap:26px;align-items:start;">
+
+        <!-- left rail -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="background:#fff;border-radius:22px;padding:20px;box-shadow:0 8px 24px rgba(90,100,150,.08);">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;"><span style="font-family:'Jua';font-size:17px;color:#3a4152;">행사 정보</span><span style="font-size:11px;color:#5f74b8;background:#e7ebf6;padding:4px 11px;border-radius:999px;">{{ evB.status }}</span></div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div><div style="font-size:11px;color:#a6adc2;margin-bottom:4px;letter-spacing:.06em;">행사</div><div style="font-family:'Jua';font-size:15px;color:#3a4152;">{{ evB.name }}</div></div>
+              <div><div style="font-size:11px;color:#a6adc2;margin-bottom:4px;letter-spacing:.06em;">일시</div><div style="font-family:'Jua';font-size:15px;color:#3a4152;line-height:1.4;">{{ evB.date }}</div></div>
+              <div style="display:flex;gap:12px;">
+                <div style="flex:1;background:#f4f5fb;border-radius:14px;padding:12px;"><div style="font-size:11px;color:#a6adc2;margin-bottom:4px;">부스</div><div style="font-family:'Jua';font-size:15px;color:#3a4152;">{{ evB.booth }}</div></div>
+                <div style="flex:1;background:#f4f5fb;border-radius:14px;padding:12px;"><div style="font-size:11px;color:#a6adc2;margin-bottom:4px;">장소</div><div style="font-family:'Jua';font-size:13px;color:#3a4152;">{{ evB.place }}</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#93a9dd;border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:11px;">
+            <div style="font-family:'Jua';font-size:16px;color:#fff;">선입금 신청</div>
+            <div style="font-size:12px;color:#eef1fb;line-height:1.6;">굿즈 현장 수령을 미리 예약하세요.</div>
+            <a href="https://witchform.com/payform/?uuid=CNICNOZNWY" target="_blank" style="background:#fff;color:#5566a8;font-family:'Jua';font-size:14px;text-align:center;padding:12px;border-radius:13px;">witchform 열기 →</a>
+          </div>
+
+          <div style="background:#fff;border-radius:22px;padding:20px;box-shadow:0 8px 24px rgba(90,100,150,.08);display:flex;flex-direction:column;gap:10px;">
+            <div style="font-size:11px;color:#a6adc2;letter-spacing:.06em;">CONTACT</div>
+            <a href="https://x.com/acidrain1313" target="_blank" style="display:flex;align-items:center;justify-content:space-between;"><span style="font-family:'Jua';font-size:14px;color:#3a4152;">SANBI</span><span style="font-size:13px;color:#5f74b8;">@acidrain1313</span></a>
+            <a href="https://x.com/appl2pi2" target="_blank" style="display:flex;align-items:center;justify-content:space-between;"><span style="font-family:'Jua';font-size:14px;color:#3a4152;">PI2</span><span style="font-size:13px;color:#5f74b8;">@appl2pi2</span></a>
+          </div>
+        </div>
+
+        <!-- right main -->
+        <div style="display:flex;flex-direction:column;gap:22px;">
+          <!-- goods list -->
+          <div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;"><div style="display:flex;align-items:baseline;gap:10px;"><span style="font-family:'Jua';font-size:20px;color:#353c4d;">굿즈 안내</span><span style="font-size:12px;color:#a6adc2;font-family:'Baloo 2';letter-spacing:.06em;">GOODS</span></div><span style="font-size:12px;color:#9098ab;">현장 · 선입금 동일가</span></div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <sc-for list="{{ goods }}" as="g" hint-placeholder-count="8">
+                <div style="background:#fff;border-radius:18px;padding:12px 14px;box-shadow:0 5px 16px rgba(90,100,150,.06);display:flex;align-items:center;gap:14px;">
+                  <span style="flex:none;width:34px;height:34px;border-radius:11px;background:#e7ebf6;color:#5f74b8;font-family:'Baloo 2';font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;">{{ g.n }}</span>
+                  <div style="flex:none;width:56px;height:56px;border-radius:12px;background:repeating-linear-gradient(45deg,#e7ebf6 0 8px,#f4f5fb 8px 16px);display:flex;align-items:center;justify-content:center;font-family:ui-monospace,monospace;font-size:8px;color:#a6adc2;">이미지</div>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:2px;"><div style="font-family:'Jua';font-size:15px;color:#3a4152;">{{ g.name }}</div><div style="font-size:12px;color:#9098ab;">{{ g.spec }}</div></div>
+                  <div style="flex:none;display:flex;align-items:baseline;gap:7px;"><sc-if value="{{ g.wasPrice }}" hint-placeholder-val="{{ false }}"><span style="text-decoration:line-through;color:#c5c9d6;font-size:12px;">{{ g.wasPrice }}원</span></sc-if><span style="font-family:'Baloo 2';font-weight:700;color:#5f74b8;font-size:17px;">{{ g.price }}원</span></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- sets -->
+          <div style="background:#e7ebf6;border-radius:22px;padding:20px;">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px;"><span style="font-family:'Jua';font-size:16px;color:#353c4d;">세트 할인</span><span style="font-size:11px;background:#93a9dd;color:#fff;padding:4px 11px;border-radius:999px;font-family:'Jua';">SET</span></div>
+            <div style="display:flex;flex-direction:column;gap:9px;">
+              <sc-for list="{{ sets }}" as="s" hint-placeholder-count="3">
+                <div style="background:#fff;border-radius:14px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                  <div style="display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Jua';font-size:14px;color:#3a4152;">{{ s.name }}</span><span style="font-size:11px;color:#9098ab;">{{ s.desc }}</span></div>
+                  <div style="flex:none;display:flex;align-items:baseline;gap:7px;"><span style="text-decoration:line-through;color:#c5c9d6;font-size:12px;">{{ s.was }}원</span><span style="font-family:'Baloo 2';font-weight:700;color:#e08aa0;font-size:16px;">{{ s.price }}원</span></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- booth map -->
+          <div>
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px;"><span style="font-family:'Jua';font-size:20px;color:#353c4d;">부스 약도</span><span style="font-size:12px;color:#a6adc2;font-family:'Baloo 2';letter-spacing:.06em;">MAP</span></div>
+            <div style="background:#fff;border-radius:22px;padding:22px;box-shadow:0 8px 24px rgba(90,100,150,.08);">
+              <div style="display:flex;justify-content:center;margin-bottom:14px;"><span style="background:#f1f3fa;color:#8088a0;font-size:12px;padding:6px 22px;border-radius:0 0 14px 14px;">↑ 입구 / 통로 ↑</span></div>
+              <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:7px;">
+                <sc-for list="{{ boothRow }}" as="b" hint-placeholder-count="8">
+                  <div style="position:relative;aspect-ratio:1;border-radius:11px;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2';font-weight:600;font-size:11px;">
+                    <sc-if value="{{ b.me }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;border-radius:11px;background:#93a9dd;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:softpulseB 2s infinite;"><span style="font-size:11px;">{{ b.code }}</span><span style="font-family:'Jua';font-size:8px;margin-top:2px;">우리 부스</span></div></sc-if>
+                    <sc-if value="{{ b.other }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;border-radius:11px;background:#f1f3fa;color:#b0b7cb;display:flex;align-items:center;justify-content:center;">{{ b.code }}</div></sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;padding:0 34px 34px;font-size:12px;color:#b0b7cb;">나츠랑 회식해요 · 코믹월드 SUMMER 2026 · BL09</div>
+    </div>
+  </div>
+
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;presaleOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;현황&quot;},&quot;showUpcoming&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;행사&quot;}}">
+class Component extends DCLogic {
+  state = { selA: 0, selB: 0, menuA: null, menuB: null };
+
+  renderVals() {
+    const presaleOpen = this.props.presaleOpen ?? true;
+    const showUpcoming = this.props.showUpcoming ?? true;
+
+    const base = [
+      { name: '코믹월드 SUMMER 2026', date: '2026.07.18 SAT — 07.19 SUN', booth: 'BL09', place: '장소 추후 공지', status: '확정' },
+      { name: '코믹월드 AUTUMN 2026', date: '2026.10 예정', booth: '미정', place: '장소 미정', status: '예정' },
+    ];
+    const events = showUpcoming ? base.slice() : base.slice(0, 1);
+    const selA = Math.min(this.state.selA, events.length - 1);
+    const selB = Math.min(this.state.selB, events.length - 1);
+    events.forEach((e, i) => {
+      e.selectA = () => this.setState({ selA: i, menuA: null });
+      e.selectB = () => this.setState({ selB: i, menuB: null });
+    });
+
+    const goods = [
+      { n: '01', name: '나츠 일러스트북 (신간)', spec: 'B5 / 24P · 나츠 온리', price: '10,000' },
+      { n: '02', name: '아크릴 스탠드', spec: '10 × 19 cm', price: '15,000' },
+      { n: '03', name: '아크릴 키링', spec: '5 × 7 cm', price: '7,000' },
+      { n: '04', name: '엽서 세트 (6종)', spec: '10 × 15 cm', price: '3,000' },
+      { n: '05', name: '나츠 색지 A', spec: '18 × 18 cm', price: '7,000' },
+      { n: '06', name: '나츠 색지 B', spec: '18 × 18 cm', price: '7,000' },
+      { n: '07', name: '나츠 일러스트북 (구간)', spec: 'A4 / 32P', price: '8,000', wasPrice: '10,000' },
+      { n: '08', name: '나츠 티셔츠', spec: 'XL · 총장72 어깨46 가슴54.5', price: '28,000' },
+    ];
+
+    const sets = [
+      { name: '나츠 풀세트', desc: '일러스트북 + 아크릴 스탠드 + 색지 2종 + 엽서세트', was: '42,000', price: '35,000' },
+      { name: '일러스트북 세트', desc: '신간 + 구간', was: '18,000', price: '15,000' },
+      { name: '아크릴 세트', desc: '스탠드 + 키링', was: '22,000', price: '18,000' },
+    ];
+
+    const codes = ['BL05', 'BL06', 'BL07', 'BL08', 'BL09', 'BL10', 'BL11', 'BL12'];
+    const boothRow = codes.map(c => ({ code: c, me: c === 'BL09', other: c !== 'BL09' }));
+
+    return {
+      events, goods, sets, boothRow,
+      evA: events[selA], evB: events[selB],
+      isEventA: this.state.menuA === 'event',
+      isNoticeA: this.state.menuA === 'notice',
+      isStatusA: this.state.menuA === 'status',
+      isEventB: this.state.menuB === 'event',
+      isNoticeB: this.state.menuB === 'notice',
+      isStatusB: this.state.menuB === 'status',
+      toggleEventA: () => this.setState(s => ({ menuA: s.menuA === 'event' ? null : 'event' })),
+      toggleNoticeA: () => this.setState(s => ({ menuA: s.menuA === 'notice' ? null : 'notice' })),
+      toggleStatusA: () => this.setState(s => ({ menuA: s.menuA === 'status' ? null : 'status' })),
+      toggleEventB: () => this.setState(s => ({ menuB: s.menuB === 'event' ? null : 'event' })),
+      toggleNoticeB: () => this.setState(s => ({ menuB: s.menuB === 'notice' ? null : 'notice' })),
+      toggleStatusB: () => this.setState(s => ({ menuB: s.menuB === 'status' ? null : 'status' })),
+      presaleOpen, presaleClosed: !presaleOpen,
+    };
+  }
+}
+</script>
+</body>
+</html>

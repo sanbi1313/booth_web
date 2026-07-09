@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Skill(run)",
+      "Bash(chromium-cli --version)",
+      "Bash(npx --yes playwright --version)",
+      "Bash(npx --yes playwright install chromium)",
+      "Bash(npx --yes playwright@1.61.1 node -e \"console.log\\('ok'\\)\")",
+      "Bash(node \"C:\\\\Users\\\\chj31\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-chj31-CLAUDE-FILE--------\\\\9d0ee072-be13-4aee-898a-3853f3373e64\\\\scratchpad\\\\verify.mjs\")",
+      "Bash(npm init *)",
+      "Bash(node verify.mjs)"
+    ]
+  }
+}
