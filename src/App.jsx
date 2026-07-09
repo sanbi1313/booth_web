@@ -50,7 +50,7 @@ export default function App() {
         />
         {menu === 'notice' && <NoticeBar />}
         {menu === 'status' && <StatusBar presaleOpen={presaleOpen} />}
-        {view === null && <Home onOpenArtist={openArtist} />}
+        {view === null && <Home onOpenArtist={openArtist} onOpenEvent={openEvent} />}
         {view === 'event' && <EventSection onGoHome={goHome} />}
         {art !== null && <ArtistDetail art={art} onGoHome={goHome} />}
       </div>

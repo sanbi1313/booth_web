@@ -1,6 +1,6 @@
 import { logoSrc, heroBgSrc, artists } from '../data/artists'
 
-export default function Home({ onOpenArtist }) {
+export default function Home({ onOpenArtist, onOpenEvent }) {
   return (
     <div>
       <div style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg,#ffffff, #eef0f7)' }}>
@@ -50,6 +50,53 @@ export default function Home({ onOpenArtist }) {
       </div>
 
       <div style={{ padding: '6px 34px 40px' }}>
+        <button
+          type="button"
+          onClick={onOpenEvent}
+          className="cc-card cc-event-card"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: 14,
+            width: '100%',
+            border: 'none',
+            cursor: 'pointer',
+            textAlign: 'left',
+            overflow: 'hidden',
+            position: 'relative',
+            background: 'linear-gradient(120deg,#f6b8c4,#f7d478)',
+            borderRadius: 20,
+            padding: '16px 20px',
+            marginBottom: 22,
+            boxShadow: '0 10px 26px rgba(230,150,150,.32)',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 26, flex: 'none' }}>🎁</span>
+            <div>
+              <div style={{ fontFamily: "'Jua'", fontSize: 15, color: '#7a3b1e' }}>랜덤 카드 무료 배포 이벤트</div>
+              <div style={{ fontSize: 12, color: '#8a5a3e', marginTop: 2 }}>
+                7/18~7/19 일정 금액 이상 구매 시 랜덤 카드 증정
+              </div>
+            </div>
+          </div>
+          <span
+            style={{
+              flex: 'none',
+              fontFamily: "'Jua'",
+              fontSize: 13,
+              color: '#e0798f',
+              background: '#fff',
+              padding: '8px 16px',
+              borderRadius: 999,
+            }}
+          >
+            자세히 보기 →
+          </span>
+        </button>
+
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 16 }}>
           <span style={{ fontFamily: "'Jua'", fontSize: 21, color: '#353c4d' }}>참여 부스</span>
           <span style={{ fontSize: 12, color: '#a6adc2', fontFamily: "'Baloo 2'", letterSpacing: '.06em' }}>BOOTHS</span>

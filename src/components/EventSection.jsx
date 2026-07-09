@@ -1,6 +1,9 @@
+import { useState } from 'react'
 import { eventCardImages, eventCardPileImage, eventPeriod, eventCondition } from '../data/eventCards'
 
 export default function EventSection({ onGoHome }) {
+  const [selected, setSelected] = useState(null)
+
   return (
     <div>
       <div style={{ position: 'relative', padding: 34, background: 'linear-gradient(135deg,#93a9dd,#c9d3ef)' }}>
@@ -57,10 +60,15 @@ export default function EventSection({ onGoHome }) {
         </div>
         <div className="cc-event-grid">
           {eventCardImages.map((src, i) => (
-            <div
+            <button
               key={src}
+              type="button"
+              onClick={() => setSelected(i)}
               className="cc-card cc-event-card"
               style={{
+                border: 'none',
+                cursor: 'pointer',
+                padding: 0,
                 background: '#fff',
                 borderRadius: 18,
                 overflow: 'hidden',
@@ -72,10 +80,64 @@ export default function EventSection({ onGoHome }) {
                 alt={`랜덤 카드 ${i + 1}`}
                 style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', display: 'block', background: '#eef0f7' }}
               />
-            </div>
+            </button>
           ))}
         </div>
       </div>
+
+      {selected !== null && (
+        <div
+          onClick={() => setSelected(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(30,34,50,.6)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 24,
+            zIndex: 1000,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: '#fff',
+              borderRadius: 24,
+              padding: 20,
+              maxWidth: 340,
+              width: '100%',
+              boxShadow: '0 24px 60px rgba(0,0,0,.28)',
+              textAlign: 'center',
+            }}
+          >
+            <img
+              src={eventCardImages[selected]}
+              alt={`랜덤 카드 ${selected + 1}`}
+              style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: 16, background: '#eef0f7' }}
+            />
+            <div style={{ fontFamily: "'Jua'", fontSize: 15, color: '#3a4152', marginTop: 14 }}>
+              랜덤 카드 {selected + 1}
+            </div>
+            <button
+              onClick={() => setSelected(null)}
+              style={{
+                border: 'none',
+                cursor: 'pointer',
+                marginTop: 16,
+                background: '#f7d478',
+                color: '#7a4a1e',
+                fontFamily: "'Jua'",
+                fontSize: 14,
+                padding: '10px 26px',
+                borderRadius: 999,
+              }}
+            >
+              닫기
+            </button>
+          </div>
+        </div>
+      )}
 
       <div style={{ textAlign: 'center', padding: '14px 34px 40px' }}>
         <button
